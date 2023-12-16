@@ -14,6 +14,7 @@
       align-items: center;
       justify-content: center;
       height: 100vh;
+      position: relative;
     }
 
     #bigMoneybag {
@@ -82,29 +83,64 @@
       cursor: pointer;
       z-index: 2;
     }
+
+    #title {
+      position: absolute;
+      top: 20px;
+      font-size: 3em;
+      font-family: 'Arial', sans-serif;
+      color: #fff;
+      z-index: 2;
+      animation: glitch 1s infinite;
+    }
+
+    @keyframes glitch {
+        0% {
+        transform: translate(0);
+      }
+      25% {
+        transform: translate(5px, -5px);
+      }
+      50% {
+        transform: translate(-5px, 5px);
+      }
+      75% {
+        transform: translate(5px, 5px);
+      }
+      100% {
+        transform: translate(0);
+      }
+    }
   </style>
 </head>
 <body>
   <div id="bigMoneybag">💰</div>
 
   <script>
+    window.onload = function () {
+      createFallingEmojis();
+      createFallingEmojis();
+    };
+  
+    let audio; // Declare audio variable globally
+  
     function createFallingEmoji() {
       const emojis = ['💰', '📈', '🤑', '💸', '💵'];
       const emoji = emojis[Math.floor(Math.random() * emojis.length)];
-
+  
       const fallingEmoji = document.createElement('div');
       fallingEmoji.className = 'falling-emoji';
       fallingEmoji.innerHTML = emoji;
-
+  
       const startX = Math.random() * window.innerWidth;
       const startY = -30;
       const speed = Math.random() * 4 + 2;
-
+  
       fallingEmoji.style.left = `${startX}px`;
       fallingEmoji.style.top = `${startY}px`;
-
+  
       document.body.appendChild(fallingEmoji);
-
+  
       function fall() {
         const currentTop = parseFloat(fallingEmoji.style.top);
         if (currentTop < window.innerHeight) {
@@ -114,33 +150,53 @@
           fallingEmoji.remove();
         }
       }
-
+  
       fall();
     }
-
+  
     function createFallingEmojis() {
       createFallingEmoji();
       setTimeout(createFallingEmojis, 150);
     }
-
-    window.onload = function() {
-      createFallingEmojis();
-      createFallingEmojis();
-    };
-
-    // Function to play the audio
+  
     function playAudio() {
-      const audio = new Audio('moneymoneymoney.mp3');
-      audio.play();
+      if (audio && !audio.paused) {
+        // If audio is playing, pause it
+        audio.pause();
+        audioEmoji.innerHTML = '🔊'; // Change emoji to sound
+      } else {
+        // If audio is paused or not initialized, start playing
+        audio = new Audio('pumpitup.mp3');
+        audio.play();
+        audioEmoji.innerHTML = '🔇'; // Change emoji to muted
+      }
     }
-
+  
     // Add a clickable audio emoji
     const audioEmoji = document.createElement('div');
     audioEmoji.id = 'audio-emoji';
     audioEmoji.innerHTML = '🔊';
     audioEmoji.addEventListener('click', playAudio);
     document.body.appendChild(audioEmoji);
+  
+    // Function to change title color randomly every 0.2 seconds
+    setInterval(() => {
+      const title = document.getElementById('title');
+      const randomColor = getRandomColor();
+      title.style.color = randomColor;
+    }, 200);
+  
+    function getRandomColor() {
+      const letters = '0123456789ABCDEF';
+      let color = '#';
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
   </script>
+  
+  
 
   <a href="https://www.google.com" class="buy-button" target="_blank">buy now</a>
   <a href="roadmap.html" class="additional-button" target="_blank">roadmap</a>
@@ -151,5 +207,7 @@
     <a href="https://twitter.com/your-twitter" class="bottom-text" target="_blank">telegram</a>
     <a href="https://twitter.com/mybagstoken" class="bottom-text" target="_blank">x.com</a>
   </div>
+  
+  <div id="title"> $MYBAGS </div>
 </body>
 </html>
