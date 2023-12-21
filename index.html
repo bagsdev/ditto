@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Ditto on Sol</title>
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
@@ -12,27 +13,41 @@
         }
 
         #ticker {
-            margin-top: 20px;
-            font-size: 50px; /* Adjust the font size as needed */
+            margin-top: 10vw; /* Adjust the margin for mobile devices */
+            font-size: 6vw; /* Adjust the font size for mobile devices */
         }
 
         #logo {
             position: absolute;
-            top: 20px; /* Adjust the top position as needed */
-            left: 20px; /* Adjust the right position as needed */
-            width: 50px; /* Adjust the width as needed */
+            top: 5vw; /* Adjust the top position for mobile devices */
+            left: 5vw; /* Adjust the left position for mobile devices */
+            width: 15vw; /* Adjust the width for mobile devices */
             height: auto; /* Maintain aspect ratio */
+        }
+
+        @media screen and (max-width: 768px) {
+            /* Adjust styles for screens with a maximum width of 768px (typical tablet and mobile landscape) */
+            #ticker {
+                margin-top: 20px;
+                font-size: 50px;
+            }
+
+            #logo {
+                top: 20px;
+                left: 20px;
+                width: 50px;
+            }
         }
     </style>
 </head>
 <body>
     <h1 id="ticker">$DITTO</h1>
     <img src="logo.png" alt="Logo" id="logo">
-    <marquee behavior="alternate" scrollamount="30">
-        <marquee behavior="alternate" scrollamount="30" direction="down">
+    <div id="animationContainer">
+        <div id="animationInnerContainer">
             <img src="ditto.png" width="172" height="145">
-        </marquee>
-    </marquee>
+        </div>
+    </div>
 
     <script>
         // Function to change ticker color randomly every 0.2 seconds
