@@ -1,17 +1,42 @@
-*
-
-{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-body
-{
+
+body {
     width: 100%;
     height: 100vh;
     background: #000;
 }
-marquee
-{
+
+#animationContainer {
     height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+#animationInnerContainer {
+    animation: bounce 2s infinite alternate;
+}
+
+@keyframes bounce {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-20px);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #animationContainer {
+        height: auto;
+    }
+
+    #animationInnerContainer {
+        animation: none;
+    }
 }
